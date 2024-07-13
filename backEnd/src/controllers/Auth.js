@@ -22,6 +22,7 @@ const SignUp = async (req, res) => {
         data: null,
       });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const data = await User.create({
       username: username,
@@ -52,8 +53,8 @@ const SignIn = async (req, res) => {
       data: null,
     });
   }
+  console.log(password)
   const isPasswordValid = await bcrypt.compare(password, oldUser.password);
-
   if (isPasswordValid) {
     const token = jwt.sign({email: oldUser.email}, JWT_SECRET, {
       expiresIn: '1h',

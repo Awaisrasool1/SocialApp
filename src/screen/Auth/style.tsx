@@ -1,16 +1,25 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Theme from '../../theme/Theme';
-
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Theme.colors.white,
     paddingHorizontal: Theme.responsiveSize.size20,
   },
+  heading: {
+    fontSize: Theme.responsiveSize.size18,
+    fontWeight: '700',
+    color: Theme.colors.black,
+    marginTop: -Theme.responsiveSize.size20,
+    marginBottom: Theme.responsiveSize.size20,
+    textAlign: 'center',
+  },
   image: {
     width: '100%',
     height: Theme.responsiveSize.size300,
     marginTop: Theme.responsiveSize.size20,
+    alignSelf: 'center',
   },
   rowGap: {
     marginTop: Theme.responsiveSize.size20,
@@ -27,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: Theme.responsiveSize.size14,
     margin: Theme.responsiveSize.size5,
     alignSelf: 'center',
-    marginTop: Theme.responsiveSize.size10,
+    marginTop: Theme.responsiveSize.size20,
   },
 });
 

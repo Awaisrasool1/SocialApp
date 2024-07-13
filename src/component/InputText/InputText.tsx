@@ -57,6 +57,7 @@ export default function InputText(props: props) {
       </Animated.Text>
       <TextInput
         value={props.value}
+        placeholderTextColor={Theme.colors.black}
         style={[
           styles.input,
           flag && props.value == ''

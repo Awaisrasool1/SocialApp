@@ -7,4 +7,5 @@ app.post('/SignUp', singleAvater, SignUp);
 app.post('/SignIn', SignIn);
 app.post('/Otp', sendOtp);
 
+
 module.exports = app;

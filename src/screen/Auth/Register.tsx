@@ -1,4 +1,10 @@
-import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
 import Theme from '../../theme/Theme';
@@ -56,8 +62,27 @@ export default function RegisterScreen() {
           password: password,
         };
         const res = await userCreate(data);
-      } catch (e) {
-        console.log(e);
+        if (res.status == 'success') {
+          ToastAndroid.showWithGravityAndOffset(
+            res?.message,
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+          );
+          setUserName('');
+          setEmail('');
+          setPassword('');
+          nav.navigate(LOGIN_SCREEN);
+        }
+      } catch (e: any) {
+        ToastAndroid.showWithGravityAndOffset(
+          JSON.stringify(e?.response?.data?.message),
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          50,
+        );
       }
     }
   };
@@ -68,6 +93,7 @@ export default function RegisterScreen() {
         style={styles.image}
         resizeMode="center"
       />
+      <Text style={styles.heading}>Register</Text>
       <View style={styles.rowGap}>
         <View>
           <InputText
@@ -116,7 +142,7 @@ export default function RegisterScreen() {
           )}
         </View>
         <Buttons
-          title="LogIn"
+          title="Sign Up"
           onPress={() => {
             if (isValid()) {
               isRegister();

@@ -4,6 +4,7 @@ import {Constants} from '../utils';
 import Splash from '../screen/Auth/Splash';
 import Login from '../screen/Auth/Login';
 import Register from '../screen/Auth/Register';
+import Home from '../screen/Home/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ const AuthStackNavigation = () => {
       <Stack.Navigator
         initialRouteName={Constants.LOGIN_SCREEN}
         screenOptions={({navigation, route}: any) => ({})}>
-       <Stack.Screen
+        <Stack.Screen
           name={Constants.SPLASH_SCREEN}
           component={Splash}
           options={{headerShown: false}}
@@ -27,7 +28,12 @@ const AuthStackNavigation = () => {
           name={Constants.Register}
           component={Register}
           options={{headerShown: false}}
-        /> 
+        />
+        <Stack.Screen
+          name={Constants.Home}
+          component={Home}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </>
   );

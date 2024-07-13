@@ -3,7 +3,7 @@ import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.100.19:8000/';
+const API_BASE_URL = 'http://192.168.58.156:8000/';
 let token: any;
 
 export const API = axios.create({
