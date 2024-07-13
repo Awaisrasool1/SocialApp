@@ -11,7 +11,7 @@ const AuthStackNavigation = () => {
   return (
     <>
       <Stack.Navigator
-        initialRouteName={Constants.SPLASH_SCREEN}
+        initialRouteName={Constants.LOGIN_SCREEN}
         screenOptions={({navigation, route}: any) => ({})}>
        <Stack.Screen
           name={Constants.SPLASH_SCREEN}

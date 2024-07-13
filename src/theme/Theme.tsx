@@ -134,7 +134,11 @@ const Theme = {
     size320: RFValue(320),
     size350: RFValue(350),
   },
-  icons: {},
+  icons: {
+    Otp:require('../assest/Img/otp.png'),
+    LoginGif:require('../assest/Img/Login.gif'),
+    SignUpGif:require('../assest/Img/SignUp.gif')
+  },
 };
 
 export default Theme;
