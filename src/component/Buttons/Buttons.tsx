@@ -1,6 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
-import Theme from '../../theme/Theme';
 interface props {
   title: string;
   onPress: () => void;
@@ -18,13 +17,13 @@ export default function Buttons(props: props) {
 
 const styles = StyleSheet.create({
   btn: {
-    color: Theme.colors.white,
+    color: 'white',
     width: '90%',
-    height: Theme.responsiveSize.size35,
-    borderRadius: Theme.responsiveSize.size5,
-    backgroundColor: Theme.colors.lightBlue,
+    height: 35,
+    borderRadius: 5,
+    backgroundColor: '#1E71B7',
     textAlign: 'center',
     textAlignVertical: 'center',
-    alignSelf:'center'
+    alignSelf: 'center',
   },
 });

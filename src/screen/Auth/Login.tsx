@@ -7,9 +7,8 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
-import Theme from '../../theme/Theme';
 import styles from './style';
-import InputText from '../../component/InputText/InputText';
+import InputText from '../../component/InputText/AnimationInputText';
 import Buttons from '../../component/Buttons/Buttons';
 import {isValidEmail} from '../../utils/Validations';
 import {useNavigation} from '@react-navigation/native';
@@ -40,6 +39,7 @@ export default function Login() {
           email: email,
           password: password,
         };
+        console.log(data)
         const res = await userLogin(data);
         if (res?.status == 'success') {
           ToastAndroid.showWithGravityAndOffset(
@@ -74,7 +74,7 @@ export default function Login() {
   return (
     <ScrollView style={styles.container}>
       <FastImage
-        source={Theme.icons.LoginGif}
+        source={require('../../assest/Img/Login.gif')}
         style={styles.image}
         resizeMode="center"
       />
@@ -111,9 +111,7 @@ export default function Login() {
       <TouchableOpacity onPress={() => nav.navigate(Register)}>
         <Text style={styles.remember}>
           {'Don’t have an acount? '}
-          <Text style={[styles.remember, {color: Theme.colors.lightBlue}]}>
-            Sign Up
-          </Text>
+          <Text style={[styles.remember, {color: '#1E71B7'}]}>Sign Up</Text>
         </Text>
       </TouchableOpacity>
     </ScrollView>

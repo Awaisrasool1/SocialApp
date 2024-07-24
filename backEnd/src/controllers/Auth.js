@@ -45,7 +45,6 @@ const SignUp = async (req, res) => {
 const SignIn = async (req, res) => {
   const {email, password} = req.body;
   const oldUser = await User.findOne({email});
-
   if (!oldUser) {
     return res.status(401).json({
       status: 'Error',
@@ -53,8 +52,8 @@ const SignIn = async (req, res) => {
       data: null,
     });
   }
-  console.log(password)
   const isPasswordValid = await bcrypt.compare(password, oldUser.password);
+  console.log(isPasswordValid)
   if (isPasswordValid) {
     const token = jwt.sign({email: oldUser.email}, JWT_SECRET, {
       expiresIn: '1h',
@@ -83,45 +82,29 @@ const SignIn = async (req, res) => {
 const sendOtp = async (req, res) => {
   try {
     const {email} = req.body;
-    const oldUser =await User.findOne({email});
+    const oldUser = await User.findOne({email});
     console.log(oldUser);
 
-    if (oldUser) {
-      return res
-        .status(401)
-        .json({status: 'Error', message: 'User already exists'});
-    }
+    // if (oldUser) {
+    //   return res
+    //     .status(401)
+    //     .json({status: 'Error', message: 'User already exists'});
+    // }
     var otp = Math.floor(1000 + Math.random() * 9000);
     const mailOptions = {
-      from: 'ProShelf <otp@proshelf.net>',
-      to: 'ProShelf <otp@proshelf.net>',
-      subject: 'ProShelf OTP',
-      html: `<div style="background-color:blue;padding:30px;display:flex;justify-content:center;align-items:center;">
-                <div style="background-color:white;border-radius:10px;padding:30px;width:100%">
-                    <h3>Hire On</h3>
-                    <div style="width: 100%;text-align:center">
-    <img src="https://cdn-icons-png.flaticon.com/512/10646/10646637.png" width="60px" height="60px" style="object-fit: contain;">
-    </div>
-    
-                    <h3 style="text-align:center;">Here is your One Time Password</h3>
-                    <p style="text-align:center;">to validate your email address</p>
-                    <div style="margin:30px 0px;">
-                        <h3 style="text-align:center;letter-spacing:18px;font-size:40px;">${otp}</h3>
-                    </div>
-                    <p style="line-height:1.6;margin-bottom:20px;text-align:center;">Thank you for your requesting.</p>
-                </div>
-            </div>
-            `,
+      from: 'socialApp <soicalApp.net>',
+      to: 'social <socialApp.net>',
+      subject: 'social OTP',
+      html: `<h3 style="text-align:center;letter-spacing:18px;font-size:40px;">${otp}</h3>`,
     };
-    
+
     transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
-        console.error('Error occurred:', error);
+        console.log(error)
         return res
           .status(500)
           .json({status: 'fail', message: 'Failed to send email.'});
       }
-      console.log('Email sent:', info.response);
 
       const createotp = await OtpModel.create({
         email: email,
@@ -131,7 +114,7 @@ const sendOtp = async (req, res) => {
 
       res
         .status(200)
-        .json({status: 'ok', message: 'OTP sent to mail successfully.'});
+        .json({status: 'success', message: 'OTP sent to mail successfully.'});
     });
   } catch (e) {}
 };

@@ -7,9 +7,8 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
-import Theme from '../../theme/Theme';
 import styles from './style';
-import InputText from '../../component/InputText/InputText';
+import InputText from '../../component/InputText/AnimationInputText';
 import Buttons from '../../component/Buttons/Buttons';
 import {isValidEmail, isValidPassword} from '../../utils/Validations';
 import {useNavigation} from '@react-navigation/native';
@@ -89,7 +88,7 @@ export default function RegisterScreen() {
   return (
     <ScrollView style={styles.container}>
       <FastImage
-        source={Theme.icons.SignUpGif}
+        source={require('../../assest/Img/SignUp.gif')}
         style={styles.image}
         resizeMode="center"
       />
@@ -153,7 +152,7 @@ export default function RegisterScreen() {
       <TouchableOpacity onPress={() => nav.navigate(LOGIN_SCREEN)}>
         <Text style={styles.remember}>
           {'Already have Account? '}
-          <Text style={[styles.remember, {color: Theme.colors.lightBlue}]}>
+          <Text style={[styles.remember, {color: '#1E71B7'}]}>
             Sign In
           </Text>
         </Text>
