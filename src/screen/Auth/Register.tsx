@@ -83,6 +83,14 @@ export default function RegisterScreen() {
           50,
         );
       }
+    } else {
+      ToastAndroid.showWithGravityAndOffset(
+        JSON.stringify('No internet Connection'),
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
     }
   };
   return (
@@ -152,9 +160,7 @@ export default function RegisterScreen() {
       <TouchableOpacity onPress={() => nav.navigate(LOGIN_SCREEN)}>
         <Text style={styles.remember}>
           {'Already have Account? '}
-          <Text style={[styles.remember, {color: '#1E71B7'}]}>
-            Sign In
-          </Text>
+          <Text style={[styles.remember, {color: '#1E71B7'}]}>Sign In</Text>
         </Text>
       </TouchableOpacity>
     </ScrollView>

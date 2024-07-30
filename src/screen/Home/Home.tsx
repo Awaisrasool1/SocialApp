@@ -3,7 +3,8 @@ import React, {useRef} from 'react';
 import Header from '../../component/header/Header';
 import styles from './style';
 import InputText from '../../component/InputText/InputText';
-
+import Carousel from 'react-native-animation-image-carousel'
+import { data } from '../../utils/Constants';
 export default function Home() {
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -25,10 +26,10 @@ export default function Home() {
     inputRange: [0, 1],
     outputRange: [0, -55],
   });
- 
+
   return (
     <>
-      <Header title={'Home'} />
+       <Header title={'Home'} />
       <Animated.View
         style={[
           styles.container,
@@ -51,17 +52,30 @@ export default function Home() {
           }}
         />
         <View style={{marginTop: 20}} />
-        <View style={styles.itemContainer}>
-          <Image
-            source={require('../../assest/Img/1.jpg')}
-            style={styles.itemImg}
-          />
-          <View>
-            <Text style={styles.itemTitle}> asdada</Text>
-            <Text style={styles.itemMessage}> asdada</Text>
+        <View>
+          <View style={styles.itemContainer}>
+            <Image
+              source={require('../../assest/Img/1.jpg')}
+              style={styles.itemImg}
+            />
+            <View>
+              <Text style={styles.itemTitle}> asdada</Text>
+              <Text style={styles.itemMessage}> asdada</Text>
+            </View>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image
+              source={require('../../assest/Img/1.jpg')}
+              style={styles.itemImg}
+            />
+            <View>
+              <Text style={styles.itemTitle}> asdada</Text>
+              <Text style={styles.itemMessage}> asdada</Text>
+            </View>
           </View>
         </View>
-      </Animated.View>
+      </Animated.View> 
+     
     </>
   );
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.100.19:8000/';
+export const API_BASE_URL = 'http://192.168.100.7:8000/';
 
 export async function userCreate(data: any) {
   const res = await axios.post(`${API_BASE_URL}account/SignUp`, data);

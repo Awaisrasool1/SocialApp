@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   itemContainer: {
-    flex: 1,
     height: 100,
     flexDirection: 'row',
     gap: 7,

@@ -5,6 +5,8 @@ import Splash from '../screen/Auth/Splash';
 import Login from '../screen/Auth/Login';
 import Register from '../screen/Auth/Register';
 import Home from '../screen/Home/Home';
+import Friends from '../screen/friends/Friends';
+import Profile from '../screen/profile/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +34,16 @@ const AuthStackNavigation = () => {
         <Stack.Screen
           name={Constants.Home}
           component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Constants.Friends}
+          component={Friends}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Constants.Profile}
+          component={Profile}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

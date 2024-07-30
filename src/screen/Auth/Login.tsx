@@ -12,9 +12,10 @@ import InputText from '../../component/InputText/AnimationInputText';
 import Buttons from '../../component/Buttons/Buttons';
 import {isValidEmail} from '../../utils/Validations';
 import {useNavigation} from '@react-navigation/native';
-import {Home, LOGIN_SCREEN, Register} from '../../utils/Constants';
+import {Home, Register} from '../../utils/Constants';
 import {isNetworkAvailable} from '../../api/api';
 import {userLogin} from '../../services/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -41,6 +42,8 @@ export default function Login() {
         };
         console.log(data)
         const res = await userLogin(data);
+        let token = res.data.token;
+        await AsyncStorage.setItem('userToken', token);
         if (res?.status == 'success') {
           ToastAndroid.showWithGravityAndOffset(
             res?.message,
@@ -61,6 +64,7 @@ export default function Login() {
           });
         }
       } catch (e: any) {
+        console.log(e.response)
         ToastAndroid.showWithGravityAndOffset(
           JSON.stringify(e?.response?.data?.message),
           ToastAndroid.LONG,
@@ -69,6 +73,14 @@ export default function Login() {
           50,
         );
       }
+    } else {
+      ToastAndroid.showWithGravityAndOffset(
+        JSON.stringify('No internet Connection'),
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
     }
   };
   return (
