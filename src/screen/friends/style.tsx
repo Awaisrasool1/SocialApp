@@ -8,11 +8,18 @@ const style = StyleSheet.create({
   itemContainer: {
     height: 90,
     flexDirection: 'row',
-    gap: 7,
+    gap: 10,
     paddingHorizontal: 10,
     borderBottomWidth: 0.5,
     padding: 15,
     borderBottomColor: '#ededee',
+  },
+  heading: {
+    color: 'black',
+    fontWeight: '700',
+    fontSize: 16,
+    marginLeft: 10,
+    marginTop: 10,
   },
   itemImg: {
     width: 70,
@@ -23,18 +30,35 @@ const style = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: 'black',
-    // marginTop:5
+    marginLeft: 5,
   },
   btn: {
     fontSize: 14,
     fontWeight: '600',
     color: 'white',
     backgroundColor: '#1E71B7',
-    width: 80,
+    width: 100,
     height: 35,
     textAlign: 'center',
     textAlignVertical: 'center',
-    borderRadius: 30
+    borderRadius: 10,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    gap: 20,
+    alignItems: 'center',
+  },
+  topBtn: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: 'white',
+    backgroundColor: '#1E71B7',
+    width: 100,
+    height: 35,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderRadius: 30,
+    marginTop: 20,
   },
 });
 

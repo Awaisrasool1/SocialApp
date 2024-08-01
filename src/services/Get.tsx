@@ -18,10 +18,40 @@ export async function getAllUser() {
     console.log('error ', Error);
   }
 }
-
+//
+export async function getAllMyFriend() {
+  const token = await AsyncStorage.getItem('userToken');
+  const res = await axios.get(`${API_BASE_URL}request/allFriend`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data.data;
+}
+//
+export async function getPendingRequest() {
+  const token = await AsyncStorage.getItem('userToken');
+  const res = await axios.get(`${API_BASE_URL}request/pendingRequest`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data.data;
+}
+//
 export async function getProfile() {
   const token = await AsyncStorage.getItem('userToken');
   const res = await axios.get(`${API_BASE_URL}account/GetProfile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+}
+//
+export async function getMessage(id: any) {
+  const token = await AsyncStorage.getItem('userToken');
+  const res = await axios.get(`${API_BASE_URL}chat/getAllMessage/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

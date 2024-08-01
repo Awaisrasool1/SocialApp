@@ -4,8 +4,9 @@ export const Register = 'registerScreen';
 export const Home = 'home';
 export const Friends = 'friends';
 export const Profile = 'profile';
-
-
+export const YourFriend = 'YourFriend';
+export const Suggestion = 'Suggestion';
+export const ChatScreen = 'ChatScreen'
 
 export const data = [
   {

@@ -7,6 +7,9 @@ import Register from '../screen/Auth/Register';
 import Home from '../screen/Home/Home';
 import Friends from '../screen/friends/Friends';
 import Profile from '../screen/profile/Profile';
+import YourFriends from '../screen/YourFriends/YourFriends';
+import Suggestions from '../screen/Suggestions/Suggestions';
+import ChatScreen from '../screen/chatScreen.tsx/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +48,21 @@ const AuthStackNavigation = () => {
           name={Constants.Profile}
           component={Profile}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Constants.YourFriend}
+          component={YourFriends}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Constants.Suggestion}
+          component={Suggestions}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Constants.ChatScreen}
+          component={ChatScreen}
+          // options={{headerShown: false}}
         />
       </Stack.Navigator>
     </>

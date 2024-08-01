@@ -40,11 +40,12 @@ export default function Login() {
           email: email,
           password: password,
         };
-        console.log(data)
         const res = await userLogin(data);
-        let token = res.data.token;
-        await AsyncStorage.setItem('userToken', token);
         if (res?.status == 'success') {
+          let token = res.data.token;
+          let UserId = res.data.userId;
+          await AsyncStorage.setItem('userToken', token);
+          await AsyncStorage.setItem('userId', UserId);
           ToastAndroid.showWithGravityAndOffset(
             res?.message,
             ToastAndroid.LONG,
@@ -64,7 +65,7 @@ export default function Login() {
           });
         }
       } catch (e: any) {
-        console.log(e.response)
+        console.log(e.response);
         ToastAndroid.showWithGravityAndOffset(
           JSON.stringify(e?.response?.data?.message),
           ToastAndroid.LONG,

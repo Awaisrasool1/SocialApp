@@ -7,22 +7,36 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { Constants } from '../../utils';
+import {useNavigation} from '@react-navigation/native';
+import {Constants} from '../../utils';
 
 interface props {
   title: string;
+  isGoBack?: boolean;
 }
 export default function Header(props: props) {
-  const nav :any= useNavigation()
+  const nav: any = useNavigation();
   return (
     <View style={style.container}>
-      <TouchableOpacity onPress={()=>{nav.navigate(Constants.Friends)}}>
-        <Image
-          source={require('../../assest/Img/line.png')}
-          // style={{width: 20, height: 20}}
-        />
-      </TouchableOpacity>
+      {props.isGoBack ? (
+        <TouchableOpacity onPress={()=>nav.goBack()}>
+          <Image
+            source={require('../../assest/Img/arrowback.png')}
+            style={{tintColor: 'black'}}
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            nav.navigate(Constants.Friends);
+          }}>
+          <Image
+            source={require('../../assest/Img/line.png')}
+            // style={{width: 20, height: 20}}
+          />
+        </TouchableOpacity>
+      )}
+
       <Text style={style.title}>{props.title}</Text>
     </View>
   );
@@ -33,10 +47,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
     alignItems: 'center',
-    borderBottomWidth: 0.7,
-    borderBottomColor: '#ededee',
     padding: 10,
-    elevation: 3,
     backgroundColor: '#FFF',
   },
   title: {

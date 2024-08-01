@@ -44,7 +44,6 @@ const SignUp = async (req, res) => {
 const SignIn = async (req, res) => {
   const {email, password} = req.body;
   const oldUser = await User.findOne({email});
-  console.log(oldUser);
   if (!oldUser) {
     return res.status(404).json({
       status: 'Error',
@@ -55,8 +54,9 @@ const SignIn = async (req, res) => {
   const isPasswordValid = await bcrypt.compare(password, oldUser.password);
   if (isPasswordValid) {
     const token = jwt.sign({_id: oldUser._id}, JWT_SECRET, {
-      expiresIn: '9h',
+      expiresIn: '24h',
     });
+    console.log(oldUser);
     if (res.status(201)) {
       return res.send({
         status: 'success',
@@ -64,6 +64,7 @@ const SignIn = async (req, res) => {
         data: {
           username: oldUser.username,
           token: token,
+          userId: oldUser._id,
         },
       });
     } else {
@@ -135,9 +136,7 @@ const getAllUser = async (req, res) => {
         ? element.sender._id
         : element.receiver._id,
     );
-    const nonFriends = users.filter(
-      u =>  console.log(friends.includes(u._id)),
-    );
+    const nonFriends = users.filter(u => console.log(friends.includes(u._id)));
     console.log(friends);
 
     res.status(200).json({status: 'success', data: users});

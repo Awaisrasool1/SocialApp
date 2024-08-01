@@ -43,7 +43,7 @@ const acceptFriendRequest = async (req, res) => {
       .json({message: 'You are not authorized to accept this request'});
   }
   if (!accept) {
-    await request.remove();
+    await request.deleteOne();
     return res.status(200).json({
       status: 'success',
       message: 'Request rejected successfully',
@@ -54,9 +54,27 @@ const acceptFriendRequest = async (req, res) => {
   });
   return res.status(200).json({
     status: 'success',
-    message: 'Friend Request Accept',
+    message: 'Friend Request Accept Successfuly',
     senderID: request.sender._id,
   });
+};
+//
+const getPendingRequestsReceiver = async (req, res, next) => {
+  try {
+    const receiverId = req.user._id;
+    if (!receiverId) {
+      return res
+        .status(404)
+        .json({status: 'error', data: 'receiver not found'});
+    }
+    const totalRequests = await Request.find({
+      receiver: receiverId,
+      status: 'pending',
+    }).populate('sender', 'avatar username' );
+    return res.status(200).json({status: 'success', data: totalRequests});
+  } catch (error) {
+    return res.status(505).json({status: 'error'});
+  }
 };
 //
 const getAllfriends = async (req, res) => {
@@ -65,8 +83,8 @@ const getAllfriends = async (req, res) => {
       $or: [{sender: req.user._id}, {receiver: req.user._id}],
       status: 'accepted',
     })
-      .populate('sender', 'username')
-      .populate('receiver', 'username');
+      .populate('sender', 'avatar username')
+      .populate('receiver', 'avatar username');
     //get my friend
     let friends = friendships.map(element =>
       element.receiver._id == req.user._id ? element.sender : element.receiver,
@@ -82,38 +100,46 @@ const getAllfriends = async (req, res) => {
 
 const getNonFriends = async (req, res) => {
   try {
-    const allUsers = await User.find({ _id: { $ne: req.user._id } });
-    
+    const allUsers = await User.find({_id: {$ne: req.user._id}});
+
     const friendships = await Request.find({
-      $or: [{ sender: req.user._id }, { receiver: req.user._id }],
-      status: 'accepted',
+      $or: [{sender: req.user._id}, {receiver: req.user._id}],
+      $or: [{status: 'accepted'}, {status: 'pending'}],
     });
 
     // Get the IDs of friends
     let friendIds = friendships.map(element =>
-      element.receiver._id.toString() === req.user._id.toString() ? element.sender._id.toString() : element.receiver._id.toString()
+      element.receiver._id.toString() === req.user._id.toString()
+        ? element.sender._id.toString()
+        : element.receiver._id.toString(),
     );
 
     // Filter out friends from the list of all users
-    const nonFriends = allUsers.filter(user => !friendIds.includes(user._id.toString()));
+    const nonFriends = allUsers.filter(
+      user => !friendIds.includes(user._id.toString()),
+    );
 
     // Add an attribute to each non-friend to send a friend request
-    const nonFriendsWithRequestStatus = await Promise.all(nonFriends.map(async (user) => {
-      const request = await Request.findOne({
-        $or: [
-          { sender: req.user._id, receiver: user._id },
-          { sender: user._id, receiver: req.user._id },
-        ],
-      });
-      return {
-        ...user.toObject(),
-        friendRequestStatus: request ? request.status : 'Add Friend'
-      };
-    }));
+    const nonFriendsWithRequestStatus = await Promise.all(
+      nonFriends.map(async user => {
+        const request = await Request.findOne({
+          $or: [
+            {sender: req.user._id, receiver: user._id},
+            {sender: user._id, receiver: req.user._id},
+          ],
+        });
+        return {
+          ...user.toObject(),
+          friendRequestStatus: request ? request.status : 'Add Friend',
+        };
+      }),
+    );
 
-    res.json({ status: 'success', data: nonFriendsWithRequestStatus });
+    res.json({status: 'success', data: nonFriendsWithRequestStatus});
   } catch (error) {
-    res.status(400).json({ message: 'Error fetching non-friends', error: error.message });
+    res
+      .status(400)
+      .json({message: 'Error fetching non-friends', error: error.message});
   }
 };
 
@@ -122,4 +148,5 @@ module.exports = {
   acceptFriendRequest,
   getAllfriends,
   getNonFriends,
+  getPendingRequestsReceiver,
 };
