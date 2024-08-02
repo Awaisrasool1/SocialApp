@@ -48,7 +48,11 @@ export default function ChatScreen() {
             <View style={style.imgContainer}>
               <Image
                 style={style.img}
-                source={require('../../assest/Img/1.jpg')}
+                source={
+                  data?.image
+                    ? {uri: data?.image}
+                    : require('../../assest/Img/1.jpg')
+                }
               />
               <Text style={style.userNameText}>{data?.username}</Text>
             </View>
@@ -62,7 +66,6 @@ export default function ChatScreen() {
               onPress={() => {
                 deleteMessages();
               }}>
-              {/* deleteMessages(selectedMessages) */}
               <Image source={require('../../assest/Img/delete.png')} />
             </TouchableOpacity>
           </View>
@@ -141,7 +144,7 @@ export default function ChatScreen() {
         fetchMessages();
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   //Scroll Down

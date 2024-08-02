@@ -21,10 +21,12 @@ mongoose
 const authRouter = require('./src/routes/AuthRoute');
 const requestRoute = require('./src/routes/RequestRoute');
 const messageRoute = require('./src/routes/MessageRoute');
+const postRoute = require('./src/routes/PostsRoute');
 
 app.use('/account', authRouter);
 app.use('/request', requestRoute);
 app.use('/chat', messageRoute);
+app.use('/posts', postRoute);
 
 app.listen(Port, () => {
   console.log(`server is running on port ${Port}`);

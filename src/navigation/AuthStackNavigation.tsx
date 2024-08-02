@@ -10,6 +10,7 @@ import Profile from '../screen/profile/Profile';
 import YourFriends from '../screen/YourFriends/YourFriends';
 import Suggestions from '../screen/Suggestions/Suggestions';
 import ChatScreen from '../screen/chatScreen.tsx/ChatScreen';
+import MyDrawer from './MyDrawer';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ const AuthStackNavigation = () => {
   return (
     <>
       <Stack.Navigator
-        initialRouteName={Constants.LOGIN_SCREEN}
+        initialRouteName={Constants.SPLASH_SCREEN}
         screenOptions={({navigation, route}: any) => ({})}>
         <Stack.Screen
           name={Constants.SPLASH_SCREEN}
@@ -35,21 +36,11 @@ const AuthStackNavigation = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name={Constants.Home}
-          component={Home}
+          name={Constants.MyDrawer}
+          component={MyDrawer}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name={Constants.Friends}
-          component={Friends}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={Constants.Profile}
-          component={Profile}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
+         <Stack.Screen
           name={Constants.YourFriend}
           component={YourFriends}
           options={{headerShown: false}}

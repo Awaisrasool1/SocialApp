@@ -7,7 +7,8 @@ interface props {
   style?: any;
   onFocus?: () => void;
   onBlur?: () => void;
-  onChange?: (i: string) => void;
+  onChange: (i: string) => void;
+  multiline?:boolean
 }
 export default function InputText(props: props) {
   return (
@@ -16,7 +17,7 @@ export default function InputText(props: props) {
       <TextInput
         value={props.value}
         placeholderTextColor={'#000000'}
-        style={styles.input}
+        style={[styles.input,props.style]}
         placeholder={props.placeHolder}
         onFocus={() => {
           props.onFocus?.();
@@ -24,7 +25,8 @@ export default function InputText(props: props) {
         onBlur={() => {
           props.onBlur?.();
         }}
-        // onChangeText={(e: any) => props.onChange(e)}
+        multiline={props.multiline}
+        onChangeText={(e: any) => props.onChange(e)}
       />
     </View>
   );

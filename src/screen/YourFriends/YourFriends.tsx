@@ -26,6 +26,7 @@ export default function YourFriends() {
       const isConnected = await isNetworkAvailable();
       if (isConnected) {
         const res = await getAllMyFriend();
+        console.log(res);
         setData(res);
       } else {
         ToastAndroid.showWithGravityAndOffset(
@@ -53,7 +54,7 @@ export default function YourFriends() {
       <Header title="Your Friends" isGoBack={true} />
       <View>
         <View style={{marginTop: 20, paddingHorizontal: 10}}>
-          <InputText placeHolder="Search for Friend" />
+          <InputText placeHolder="Search for Friend" onChange={()=>{}}/>
         </View>
         {data?.map((val: any, index: any) => (
           <TouchableOpacity
@@ -65,7 +66,11 @@ export default function YourFriends() {
               });
             }}>
             <Image
-              source={require('../../assest/Img/1.jpg')}
+              source={
+                val?.image
+                  ? {uri: val?.image}
+                  : require('../../assest/Img/1.jpg')
+              }
               style={style.itemImg}
             />
             <View style={{rowGap: 10}}>

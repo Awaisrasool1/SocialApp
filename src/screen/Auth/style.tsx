@@ -37,6 +37,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
   },
+  defultImg: {
+    width: 150,
+    height: 150,
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 85,
+  },
+  lebel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: 'black',
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

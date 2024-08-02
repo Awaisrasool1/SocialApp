@@ -5,8 +5,6 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AuthStackNavigation from './src/navigation/AuthStackNavigation';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
-import {loginApi} from './src/services/auth';
-import axios from 'axios';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

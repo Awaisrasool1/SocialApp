@@ -94,7 +94,11 @@ export default function Suggestions() {
         {data?.map((val: any, index: any) => (
           <View style={style.itemContainer} key={index}>
             <Image
-              source={require('../../assest/Img/1.jpg')}
+              source={
+                val?.image
+                  ? {uri: val?.image}
+                  : require('../../assest/Img/1.jpg')
+              }
               style={style.itemImg}
             />
             <View style={{rowGap: 10}}>
@@ -164,5 +168,4 @@ const style = StyleSheet.create({
     textAlignVertical: 'center',
     borderRadius: 10,
   },
-
 });

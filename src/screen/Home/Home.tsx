@@ -1,81 +1,47 @@
-import {View, Text, Image, Animated, ScrollView} from 'react-native';
-import React, {useRef} from 'react';
+import {View, Text, Image, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import Header from '../../component/header/Header';
-import styles from './style';
-import InputText from '../../component/InputText/InputText';
-import Carousel from 'react-native-animation-image-carousel'
-import { data } from '../../utils/Constants';
+import style from './style';
+import {isNetworkAvailable} from '../../api/api';
+import {getAllUserPost} from '../../services/Get';
+import {useFocusEffect} from '@react-navigation/native';
+
 export default function Home() {
-  const animation = useRef(new Animated.Value(0)).current;
+  const [data, setData] = useState([]);
 
-  const onFocus = () => {
-    Animated.timing(animation, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, []),
+  );
+  const getData = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await getAllUserPost();
+        console.log(res)
+        setData(res?.data);
+      } catch (e) {}
+    }
   };
-  const onBlur = () => {
-    Animated.timing(animation, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  };
-  const height = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -55],
-  });
-
   return (
     <>
-       <Header title={'Home'} />
-      <Animated.View
-        style={[
-          styles.container,
-          {
-            transform: [
-              {
-                translateY: height,
-              },
-            ],
-          },
-        ]}>
-        <View style={{marginTop: 15}} />
-        <InputText
-          placeHolder="Search for Friend"
-          onFocus={() => {
-            onFocus();
-          }}
-          onBlur={() => {
-            onBlur();
-          }}
-        />
+      <Header title={'Home'} />
+      <ScrollView style={style.container}>
         <View style={{marginTop: 20}} />
-        <View>
-          <View style={styles.itemContainer}>
-            <Image
-              source={require('../../assest/Img/1.jpg')}
-              style={styles.itemImg}
-            />
-            <View>
-              <Text style={styles.itemTitle}> asdada</Text>
-              <Text style={styles.itemMessage}> asdada</Text>
+        {data.map((val: any, index: any) => (
+          <View style={{flex: 1, marginBottom: 30}} key={index}>
+            <View style={style.senderContainer}>
+              <Image
+                source={{uri: val?.sender?.image}}
+                style={style.senderimg}
+              />
+              <Text style={style.snedreName}>{val?.sender?.username}</Text>
             </View>
+            <Image source={{uri: val.imageUrl}} style={style.postImg} />
           </View>
-          <View style={styles.itemContainer}>
-            <Image
-              source={require('../../assest/Img/1.jpg')}
-              style={styles.itemImg}
-            />
-            <View>
-              <Text style={styles.itemTitle}> asdada</Text>
-              <Text style={styles.itemMessage}> asdada</Text>
-            </View>
-          </View>
-        </View>
-      </Animated.View> 
-     
+        ))}
+      </ScrollView>
     </>
   );
 }

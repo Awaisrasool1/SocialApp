@@ -58,3 +58,25 @@ export async function getMessage(id: any) {
   });
   return res.data;
 }
+
+//
+export async function getUserPost() {
+  const token = await AsyncStorage.getItem('userToken');
+  const res = await axios.get(`${API_BASE_URL}posts/getPosts`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+}
+
+//
+export async function getAllUserPost() {
+  const token = await AsyncStorage.getItem('userToken');
+  const res = await axios.get(`${API_BASE_URL}posts/getAllPosts`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+}

@@ -8,6 +8,7 @@ interface props {
   style?: any;
   onBlur: () => void;
   onChange: (i: string) => void;
+  multiline?:boolean
 }
 export default function AnimationInputText(props: props) {
   const animation = useRef(new Animated.Value(0)).current;
@@ -57,8 +58,10 @@ export default function AnimationInputText(props: props) {
       <TextInput
         value={props.value}
         placeholderTextColor={'#000000'}
+        multiline={props.multiline}
         style={[
           styles.input,
+          props.style,
           flag && props.value == ''
             ? {
                 borderColor: '#1E71B7',
@@ -117,5 +120,6 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 10,
     fontSize: 14,
+    
   },
 });

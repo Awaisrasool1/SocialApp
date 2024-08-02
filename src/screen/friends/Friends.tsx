@@ -4,8 +4,8 @@ import Header from '../../component/header/Header';
 import InputText from '../../component/InputText/InputText';
 import style from './style';
 import {isNetworkAvailable} from '../../api/api';
-import {getAllUser, getPendingRequest} from '../../services/Get';
-import {acceptFriendRequest, sendFriendRequest} from '../../services/Put';
+import {getPendingRequest} from '../../services/Get';
+import {acceptFriendRequest} from '../../services/Put';
 import {useNavigation} from '@react-navigation/native';
 import {Constants} from '../../utils';
 
@@ -42,7 +42,7 @@ export default function Friends() {
       console.log(e?.response.data);
     }
   };
- 
+
   const acceptRequest = async (id: any, flag: any) => {
     const isConnected = await isNetworkAvailable();
     if (isConnected) {
@@ -88,13 +88,17 @@ export default function Friends() {
       </View>
       <View>
         <View style={{marginTop: 20, paddingHorizontal: 10}}>
-          <InputText placeHolder="Search for Friend" />
+          <InputText placeHolder="Search for Friend" onChange={()=>{}}/>
         </View>
         <Text style={style.heading}>Friend Requests</Text>
         {data?.map((val: any, index: any) => (
           <View style={style.itemContainer} key={index}>
             <Image
-              source={require('../../assest/Img/1.jpg')}
+              source={
+                val?.sender?.image
+                  ? {uri: val?.sender?.image}
+                  : require('../../assest/Img/1.jpg')
+              }
               style={style.itemImg}
             />
             <View style={{rowGap: 10}}>
@@ -122,4 +126,3 @@ export default function Friends() {
     </View>
   );
 }
-

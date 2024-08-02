@@ -58,8 +58,10 @@ const acceptFriendRequest = async (req, res) => {
     senderID: request.sender._id,
   });
 };
+
+
 //
-const getPendingRequestsReceiver = async (req, res, next) => {
+const getPendingRequestsReceiver = async (req, res) => {
   try {
     const receiverId = req.user._id;
     if (!receiverId) {
@@ -70,12 +72,14 @@ const getPendingRequestsReceiver = async (req, res, next) => {
     const totalRequests = await Request.find({
       receiver: receiverId,
       status: 'pending',
-    }).populate('sender', 'avatar username' );
+    }).populate('sender', 'image username' );
     return res.status(200).json({status: 'success', data: totalRequests});
   } catch (error) {
     return res.status(505).json({status: 'error'});
   }
 };
+
+
 //
 const getAllfriends = async (req, res) => {
   try {
@@ -83,8 +87,8 @@ const getAllfriends = async (req, res) => {
       $or: [{sender: req.user._id}, {receiver: req.user._id}],
       status: 'accepted',
     })
-      .populate('sender', 'avatar username')
-      .populate('receiver', 'avatar username');
+      .populate('sender', 'image username')
+      .populate('receiver', 'image username');
     //get my friend
     let friends = friendships.map(element =>
       element.receiver._id == req.user._id ? element.sender : element.receiver,
@@ -98,6 +102,7 @@ const getAllfriends = async (req, res) => {
   }
 };
 
+//
 const getNonFriends = async (req, res) => {
   try {
     const allUsers = await User.find({_id: {$ne: req.user._id}});

@@ -15,15 +15,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar: {
-      public_Id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
+    bio: {
+      type: String,
+    },
+    image: {
+      type: String,
     },
   },
   {

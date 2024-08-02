@@ -13,13 +13,15 @@ import {Constants} from '../../utils';
 interface props {
   title: string;
   isGoBack?: boolean;
+  isPrifile?: boolean;
+  imgPicker?: () => void;
 }
 export default function Header(props: props) {
   const nav: any = useNavigation();
   return (
     <View style={style.container}>
       {props.isGoBack ? (
-        <TouchableOpacity onPress={()=>nav.goBack()}>
+        <TouchableOpacity onPress={() => nav.goBack()}>
           <Image
             source={require('../../assest/Img/arrowback.png')}
             style={{tintColor: 'black'}}
@@ -28,7 +30,7 @@ export default function Header(props: props) {
       ) : (
         <TouchableOpacity
           onPress={() => {
-            nav.navigate(Constants.Friends);
+            nav.openDrawer();
           }}>
           <Image
             source={require('../../assest/Img/line.png')}
@@ -36,8 +38,15 @@ export default function Header(props: props) {
           />
         </TouchableOpacity>
       )}
-
       <Text style={style.title}>{props.title}</Text>
+      {props.isPrifile && (
+        <TouchableOpacity
+          onPress={() => {
+            props.imgPicker?.();
+          }}>
+          <Image source={require('../../assest/Img/add.png')} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -45,7 +54,7 @@ export default function Header(props: props) {
 const style = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#FFF',

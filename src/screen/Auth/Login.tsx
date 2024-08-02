@@ -12,7 +12,7 @@ import InputText from '../../component/InputText/AnimationInputText';
 import Buttons from '../../component/Buttons/Buttons';
 import {isValidEmail} from '../../utils/Validations';
 import {useNavigation} from '@react-navigation/native';
-import {Home, Register} from '../../utils/Constants';
+import {MyDrawer, Register} from '../../utils/Constants';
 import {isNetworkAvailable} from '../../api/api';
 import {userLogin} from '../../services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,6 +46,7 @@ export default function Login() {
           let UserId = res.data.userId;
           await AsyncStorage.setItem('userToken', token);
           await AsyncStorage.setItem('userId', UserId);
+          
           ToastAndroid.showWithGravityAndOffset(
             res?.message,
             ToastAndroid.LONG,
@@ -59,7 +60,7 @@ export default function Login() {
             index: 0,
             routes: [
               {
-                name: Home,
+                name: MyDrawer,
               },
             ],
           });

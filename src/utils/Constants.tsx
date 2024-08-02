@@ -6,7 +6,8 @@ export const Friends = 'friends';
 export const Profile = 'profile';
 export const YourFriend = 'YourFriend';
 export const Suggestion = 'Suggestion';
-export const ChatScreen = 'ChatScreen'
+export const ChatScreen = 'ChatScreen';
+export const MyDrawer = 'MyDrawer';
 
 export const data = [
   {
